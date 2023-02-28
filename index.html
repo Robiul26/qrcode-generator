@@ -9,64 +9,92 @@
     <script src="./assets/qrcode.min.js"></script>
     <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="./assets/style.css">
+
+    <!-- google analytics -->
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XE1VWT4VW5"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'G-XE1VWT4VW5');
+    </script>
 </head>
 
 <body>
     <!-- Main section -->
     <div class="container mx-auto">
-        <div class="w-full flex flex-col items-center">                         
-            <div id="mainContent" class="relative w-full sm:w-1/2 border rounded-md flex flex-col items-center justify-center gap-10">
+        <div class="w-full flex flex-col items-center">
+            <div id="mainContent"
+                class="relative w-full sm:w-1/2 border rounded-md flex flex-col items-center justify-center gap-10">
                 <div class=" bg-green-500 w-full rounded-t-md">
                     <h2 class="text-white text-xl sm:text-3xl font-medium uppercase p-10">QR Code Generator</h2>
-                </div>  
-                 <!-- Notification -->
+                </div>
+                <!-- Notification -->
                 <div id="copyNotify" class=" absolute mt-40 right-0 sm:w-1/2 h-screen  hidden ">
                     <p class=" bg-green-700 text-white font-medium p-3 rounded-md">Image has been copied </p>
                 </div>
-               <div class=" w-full rounded-md flex flex-col items-center justify-center gap-10 px-5 pb-10">
-                    <input id="inputId" oninput="inputHandler()" class="border-2 border-green-400 text-center rounded-md py-2 shadow-sm sm:text-sm px-2 font-medium w-full" placeholder="Enter Text" type="text" name="search"/> 
+                <div class=" w-full rounded-md flex flex-col items-center justify-center gap-10 px-5 pb-10">
+                    <input id="inputId" oninput="inputHandler()"
+                        class="border-2 border-green-400 text-center rounded-md py-2 shadow-sm sm:text-sm px-2 font-medium w-full"
+                        placeholder="Enter Text" type="text" name="search" />
                     <div class="flex gap-2">
-                        <button id="saveBtn" title="download" onclick="openImageFilenameModal(this)" class=" hidden border-0 outline-0 ring-0 bg-green-600  items-center justify-center px-4 py-1 rounded-full text-white font-medium hover:bg-green-500 transition">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                            </svg>                         
+                        <button id="saveBtn" title="download" onclick="openImageFilenameModal(this)"
+                            class=" hidden border-0 outline-0 ring-0 bg-green-600  items-center justify-center px-4 py-1 rounded-full text-white font-medium hover:bg-green-500 transition">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                            </svg>
                         </button>
-                        <button id="copyBtn" title="copy image to clipboard" onclick="copyHandler()" class="hidden border-0 outline-0 ring-0 bg-green-600  items-center justify-center px-4 py-1 rounded-full text-white font-medium hover:bg-green-500 transition">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2" />
-                            </svg>                            
+                        <button id="copyBtn" title="copy image to clipboard" onclick="copyHandler()"
+                            class="hidden border-0 outline-0 ring-0 bg-green-600  items-center justify-center px-4 py-1 rounded-full text-white font-medium hover:bg-green-500 transition">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2" />
+                            </svg>
                         </button>
-                    </div>                      
+                    </div>
                     <div id="qrImg" class="">
                         <!-- QRCode output here -->
-                    </div>               
-               </div>
-              
-            </div>
-             <!-- Modal -->
-             <div id="fileNameModal" class="w-full bg-black absolute sm:w-1/2 h-screen  hidden items-center justify-center">
-                <div class="bg-white shadow-md p-3 mx-2 rounded-md w-full flex flex-col gap-4">
-                    <h2 class="font-medium text-xl">Download QRCode</h2>
-                    <input id="filenameId" type="text" class="border-b-2 border-green-600 p-2 rounded outline-none font-medium " placeholder="Enter Filename">
-                    <div class="flex items-center justify-end gap-3 pb-2 py-5">
-                        <button onclick="cancleDownloadImage()" class="bg-red-500 rounded font-medium py-1 px-3 text-white cursor-pointer hover:bg-red-400 transition">Cancel</button>
-                        <button onclick="downloadImage()" id="filenameDownloadBtn" class="bg-green-500 rounded font-medium py-1 px-3 text-white cursor-pointer hover:bg-green-400 transition">Download</button>
                     </div>
                 </div>
-            </div> 
-           
+
+            </div>
+            <!-- Modal -->
+            <div id="fileNameModal"
+                class="w-full bg-black absolute sm:w-1/2 h-screen  hidden items-center justify-center">
+                <div class="bg-white shadow-md p-3 mx-2 rounded-md w-full flex flex-col gap-4">
+                    <h2 class="font-medium text-xl">Download QRCode</h2>
+                    <input id="filenameId" type="text"
+                        class="border-b-2 border-green-600 p-2 rounded outline-none font-medium "
+                        placeholder="Enter Filename">
+                    <div class="flex items-center justify-end gap-3 pb-2 py-5">
+                        <button onclick="cancleDownloadImage()"
+                            class="bg-red-500 rounded font-medium py-1 px-3 text-white cursor-pointer hover:bg-red-400 transition">Cancel</button>
+                        <button onclick="downloadImage()" id="filenameDownloadBtn"
+                            class="bg-green-500 rounded font-medium py-1 px-3 text-white cursor-pointer hover:bg-green-400 transition">Download</button>
+                    </div>
+                </div>
+            </div>
+
         </div>
-   </div>
-   <!-- Footer section -->
-   <footer class="flex items-center justify-center">
-       <p class="p-5 font-medium text-green-600">By 
-           <a href="https://facebook.com/robiidb" target="_blank">Robiul Robi</a>
-        © 2022</p>
-   </footer>
+    </div>
+    <!-- Footer section -->
+    <footer class="flex items-center justify-center">
+        <p class="p-5 font-medium text-green-600">By
+            <a href="https://facebook.com/robiidb" target="_blank">Robiul Robi</a>
+            © 2022</p>
+    </footer>
 
 
-   <!-- script's -->
-   <script src="./assets/script.js"></script>
+    <!-- script's -->
+    <script src="./assets/script.js"></script>
 </body>
 
 </html>
